@@ -1,0 +1,46 @@
+<section data-ng-controller="SchoolController">
+    <form id="user-add-form" class="row-fluid form-inline" name="addUserForm" data-ng-submit="add()">
+        <div class="">
+            <span data-ng-repeat="field in schoolSchema">
+                <input data-ng-if="(field['type'] == 'text' || field['type'] == 'password')" type="{{field['type']}}" class="span2" data-ng-model="school[field['schemaKey']]" placeholder="{{field['title']}}" id="user-add-title" />
+            </span>
+            <input type="submit" class="btn span1" value="Add" />
+        </div>
+    </form>
+    <div class="loader" data-ng-init="init()" data-ng-hide="schools.length"></div>
+    <div class="actions-bar" data-ng-show="schools.length">
+        <input type="button" class="btn btn-danger" data-ng-hide="edit" data-ng-click="edit=!edit" value="Edit">
+        <input type="button" class="btn btn-primary" data-ng-show="edit" data-ng-click="edit=!edit" value="Done">
+    </div>
+    <table class="table table-striped table-bordered table-hover editable-table" data-ng-show="schools.length">
+        <tr>
+            <th data-ng-show="edit">
+                Edit
+            </th>
+            <th data-ng-repeat="field in schoolSchema" data-ng-if="field.inTable">{{field.title}}</th>
+        </tr>
+        <tr data-ng-repeat="school in schools">
+            <td data-ng-show="edit">
+                <button class="glyphicon glyphicon-trash" data-ng-click="remove(school)" value="del">
+                    <i class="icon-trash icon-white"></i>
+                </button>
+            </td>
+            <td class="table-editable-cell" data-ng-repeat="field in schoolSchema" data-ng-if="field.inTable">
+                <span data-ng-if="(field['type'] == 'text')" class="editable-span" data-ng-editable="update(school)" data-ng-editable-model="school[field['schemaKey']]"></span>
+                <span data-ng-click="beforeSelect(field['schemaKey'], school)" data-ng-if="(field['type'] == 'select')" class="editable-span" data-ng-editable-select="update(school, field['schemaKey'])" data-ng-editable-select-model="user[field['schemaKey']]" data-ng-editable-select-options="field['options']">
+                </span>
+            </td>
+        </tr>
+    </table>
+    <!--<div data-ng-repeat="school in schools"><a data-ng-href="/admin/majors/{{school._id}}">{{school.school_name}} - Majors</a></div>-->
+    <!--<hr>-->
+    <!--<div data-ng-repeat="school in schools"><a data-ng-href="/admin/affinitygroups/{{school._id}}">{{school.school_name}} - Affinity Groups</a></div>-->
+    <!--<hr>-->
+    <!--<div data-ng-repeat="school in schools"><a data-ng-href="/admin/companies/{{school._id}}">{{school.school_name}} - Companies</a></div>-->
+    <!--<hr>-->
+    <!--<div data-ng-repeat="school in schools"><a data-ng-href="/admin/departments/{{school._id}}">{{school.school_name}} - Departments</a></div>-->
+    <!--<hr>-->
+    <!--<div data-ng-repeat="school in schools"><a data-ng-href="/admin/userapps/{{school._id}}">{{school.school_name}} - UserApps</a></div>-->
+    <!--<hr>-->
+    <!--<div data-ng-repeat="school in schools"><a data-ng-href="/admin/home/{{school._id}}">{{school.school_name}} - Home</a></div>-->
+</section>

@@ -1,0 +1,117 @@
+<section data-ng-controller="UserAppsController">
+
+    <div class="mdl-card2 mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid" id="users-filter">
+        <!--<div class="mdl-card__title">-->
+            <!--<h2 class="mdl-card__title-text">Add Users</h2>-->
+        <!--</div>-->
+        <!--<div class="mdl-card__supporting-text">-->
+            <!--<form data-ng-submit="add()">-->
+                <!--<div class="mdl-textfield mdl-js-textfield mdl-cell&#45;&#45;12-col mdl-textfield&#45;&#45;floating-label is-upgraded" data-upgraded=",MaterialTextfield" data-ng-repeat="field in userappSchema">-->
+                    <!--<input class="mdl-textfield__input" type="text" id="add-user" data-ng-if="(field['type'] == 'text' || field['type'] == 'password')" type="{{field['type']}}" class="span2" data-ng-model="userapp[field['schemaKey']]" placeholder="{{field['title']}}" id="user-add-title" />-->
+                    <!--<label class="mdl-textfield__label" for="add-user"></label>-->
+                <!--</div>-->
+                <!--<div class="mdl-card__actions">-->
+                    <!--<button type="submit" class="mdl-button mdl-js-button mdl-button&#45;&#45;raised mdl-button&#45;&#45;accent mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple" type="submit" value="Add" >Add<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>-->
+                <!--</div>-->
+            <!--</form>-->
+        <!--</div>-->
+
+        <form data-ng-submit="getFiltered()">
+
+            <div data-ng-init="allMajors()">
+                <select class="selectpicker" data-ng-model="majorchoice" >
+                    <option data-ng-repeat="y in majors" value="{{y._id}}">
+                        {{y._id}}
+                    </option>
+                </select>
+            </div>
+            <div data-ng-init="allDepartments()">
+                <select class="selectpicker" data-ng-model="departmentchoice">
+                    <option data-ng-repeat="y in departments" value="{{y._id}}">
+                        {{y._id}}
+                    </option>
+                </select>
+            </div>
+            <div data-ng-init="allAffinityGroups()">
+                <select class="selectpicker" data-ng-model="affinitygroupchoice">
+                    <option data-ng-repeat="y in affinitygroups" value="{{y._id}}">
+                        {{y._id}}
+                    </option>
+                </select>
+            </div>
+            <div data-ng-init="allCompanies()" class="selectpicker">
+                <select class="selectpicker" data-ng-model="companychoice">
+                    <option data-ng-repeat="y in companies" value="{{y._id}}">
+                        {{y._id}}
+                    </option>
+                </select>
+            </div>
+            <input type="submit" class="btn btn-block">
+        </form>
+<!--=======-->
+    <!--<div class="mdl-card2 mdl-color&#45;&#45;white mdl-shadow&#45;&#45;2dp mdl-cell mdl-cell&#45;&#45;12-col mdl-grid" id="users-filter">-->
+        <!--<div class="mdl-card__title">-->
+            <!--<h2 class="mdl-card__title-text">Add Users</h2>-->
+        <!--</div>-->
+        <!--<div class="mdl-card__supporting-text">-->
+            <!--<form data-ng-submit="add()">-->
+                <!--<div class="mdl-textfield mdl-js-textfield mdl-cell&#45;&#45;12-col mdl-textfield&#45;&#45;floating-label is-upgraded" data-upgraded=",MaterialTextfield" data-ng-repeat="field in userappSchema">-->
+                    <!--<input class="mdl-textfield__input" type="text" id="add-user" data-ng-if="(field['type'] == 'text' || field['type'] == 'password')" type="{{field['type']}}" class="span2" data-ng-model="userapp[field['schemaKey']]" placeholder="{{field['title']}}" id="user-add-title" />-->
+                    <!--<label class="mdl-textfield__label" for="add-user"></label>-->
+                <!--</div>-->
+                <!--<div class="mdl-card__actions">-->
+                    <!--<button type="submit" class="mdl-button mdl-js-button mdl-button&#45;&#45;raised mdl-button&#45;&#45;accent mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple" type="submit" value="Add" >Add<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>-->
+                <!--</div>-->
+            <!--</form>-->
+        <!--</div>-->
+<!--&gt;>>>>>> 95f35975be5dd54d4af392e1ed14845b35966dba-->
+
+        <div class="loader" data-ng-init="init()" data-ng-hide="userapps.length"></div>
+
+        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp mdl-cell--12-col" data-ng-show="userapps.length">
+            <thead>
+            <th class="mdl-data-table__cell--non-numeric" data-ng-repeat="field in userappSchema" data-ng-if="field.inTable">{{field.title}}</th>
+            <!--</tr>-->
+            <!--<th class="mdl-data-table__cell&#45;&#45;non-numeric" data-ng-repeat="field in userappSchema" data-ng-if="field.inTable">{{field.title}}-->
+            <!--</thead>-->
+            </thead>
+            <!--<tr>-->
+                <!--<th data-ng-show="edit">-->
+                    <!--Edit-->
+                <!--</th>-->
+                <!--<th data-ng-repeat="field in userappSchema" data-ng-if="field.inTable">{{field.title}}</th>-->
+                <!--<th>Profile</th>-->
+            <!--</tr>-->
+            <tr data-ng-repeat="x in userapps">
+                <td>{{x.first_name}} {{x.last_name}}</td>
+                <td>{{x.grad_year}}</td>
+                <td>{{x.profile.about}}</td>
+                <td>{{x.profile.company_department}}</td>
+                <td>{{x.profile.majors}}</td>
+                <td>{{x.profile.affinity_groups}}</td>
+                <td>{{x.profile.date_created}}</td>
+                <td>{{x.profile.last_update}}</td>
+                <td><a href="/admin/profiles/{{x._id}}">Go to profile</a></td>
+
+            </tr>
+        </table>
+
+
+                <!--<td data-ng-show="edit">-->
+                <!--<button class="glyphicon glyphicon-trash" data-ng-click="remove(major)" value="del">-->
+                <!--<i class="icon-trash icon-white"></i>-->
+                <!--</button>-->
+                <!--</td>-->
+                <!--<td class="mdl-data-table__cell&#45;&#45;non-numeric" data-ng-repeat="field in majorSchema" data-ng-if="field.inTable">-->
+                    <!--<span data-ng-if="(field['type'] == 'text')" class="editable-span" data-ng-editable="update(major)" data-ng-editable-model="major[field['schemaKey']]"></span>-->
+                <!--<span data-ng-click="beforeSelect(field['schemaKey'], major)" data-ng-if="(field['type'] == 'select')" class="editable-span" data-ng-editable-select="update(major, field['schemaKey'])" data-ng-editable-select-model="user[field['schemaKey']]" data-ng-editable-select-options="field['options']">-->
+                <!--</span>-->
+                <!--</td>-->
+            <!--</tr>-->
+
+        <!--</table>-->
+
+    </div>
+
+</section>
+

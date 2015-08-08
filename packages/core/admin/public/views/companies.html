@@ -1,0 +1,33 @@
+<section data-ng-controller="CompanyController">
+    <div class="mdl-card2 mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid" id="users-filter">
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Add Companies</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+            <form data-ng-submit="add()">
+                <div class="mdl-textfield mdl-js-textfield mdl-cell--12-col mdl-textfield--floating-label is-upgraded" data-upgraded=",MaterialTextfield" data-ng-repeat="field in CompanySchema">
+                    <input class ="mdl-textfield__input" data-ng-if="(field['type'] == 'text' || field['type'] == 'password')" type="{{field['type']}}" class="span2" data-ng-model="company[field['schemaKey']]" placeholder="{{field['title']}}" id="user-add-title" />
+
+                </div>
+                <div class="mdl-card__actions">
+                    <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple" type="submit" value="Add" >Add<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+                </div>
+            </form>
+        </div>
+
+        <div class="loader" data-ng-init="init()" data-ng-hide="companies.length"></div>
+        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp mdl-cell--12-col" id="affinitygroups-table" data-ng-show="companies.length">
+            <thead>
+            <th class="mdl-data-table__cell--non-numeric" data-ng-repeat="field in CompanySchema" data-ng-if="field.inTable">{{field.title}}</th>
+            </thead>
+            <tr data-ng-repeat="company in companies">
+                <td class="mdl-data-table__cell--non-numeric" data-ng-repeat="field in CompanySchema" data-ng-if="field.inTable" >
+                    <input type="text" data-ng-model="company[field['schemaKey']]"></input><span class="pull-right"><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect" data-ng-click="edit(companies.indexOf(company))">Save</button></span>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+</section>
+
