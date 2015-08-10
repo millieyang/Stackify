@@ -1,7 +1,7 @@
 # Stackify
 Full-stack web application that makes Stack Overflow easier to use
 This application was developed in the Piazza hackathon.
-This is a search engine that can be implemented in Stack Overflow and can make their search more efficient.
+This is a search engine that can be implemented in Stack Overflow and can their search engine more efficient.
 Currently Stack Overflow arranges its results using either relevance or number of upvotes. The application I have developed uses both relevance and upvotes.
 There is also a dynamic statistics table that displays most frequent searches on Stack Overflow based on the tags.
 
